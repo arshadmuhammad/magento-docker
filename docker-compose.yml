@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build: ./nginx
+    ports:
+    - "80:80"
+    volumes:
+    - ./src:/var/www/html
+    depends_on:
+      - php-fpm
+      - db
+    links:
+      - php-fpm
+      - db
+  php-fpm:
+    build: ./php-fpm
+    volumes:
+    - ./src:/var/www/html
+  db:
+    image: percona
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=magento
+      - MYSQL_PASSWORD=magento
+    ports:
+    - "3306:3306"
+    volumes:
+    - dbdata:/var/lib/mysql
+volumes:
+  dbdata:
+    driver: local
