@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         libonig-dev \
         && docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir=/usr/include \
-        && docker-php-ext-install -j$(nproc) gd dom intl mbstring pdo_mysql xsl zip soap bcmath pcntl \
+        && docker-php-ext-install -j$(nproc) gd dom intl mbstring sockets pdo_mysql xsl zip soap bcmath pcntl \
         && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
         && composer --version
 
