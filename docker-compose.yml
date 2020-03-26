@@ -17,7 +17,7 @@ services:
     volumes:
     - ./src:/var/www/html
   db:
-    image: percona
+    image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=magento
@@ -27,6 +27,15 @@ services:
     - "3306:3306"
     volumes:
     - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_HOST=db
+     - PMA_USER=root
+     - PMA_PASSWORD=root
+     - MYSQL_ROOT_PASSWORD=root
+    ports:
+     - 8080:80
 volumes:
   dbdata:
     driver: local
