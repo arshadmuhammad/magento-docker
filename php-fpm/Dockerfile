@@ -1,6 +1,11 @@
 FROM php:7.3-fpm
 
 RUN apt-get update && apt-get install -y \
+        git \
+        golang-go \
+        && mkdir /opt/go \
+        && export GOPATH=/opt/go \
+        && go get github.com/mailhog/mhsendmail \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
@@ -13,6 +18,8 @@ RUN apt-get update && apt-get install -y \
         && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
         && composer --version \
         && pecl install xdebug && docker-php-ext-enable xdebug
+
+ADD config/php.ini $PHP_INI_DIR/
 
 RUN mkdir -p /var/www/html; \
     chown -R www-data:www-data /var/www/html; \

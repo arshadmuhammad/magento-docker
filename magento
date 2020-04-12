@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker-compose exec --user www-data php-fpm php -d memory_limit=-1 /var/www/html/bin/magento $@

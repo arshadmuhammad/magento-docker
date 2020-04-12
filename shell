@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [ -z "$1" ]
+  then
+    docker-compose exec --user www-data php-fpm bash
+else
+    docker-compose exec --user $@ php-fpm bash
+fi
+
