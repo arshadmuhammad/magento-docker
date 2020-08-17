@@ -44,6 +44,7 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
+
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN apt-get install -y git
