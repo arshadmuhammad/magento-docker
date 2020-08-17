@@ -12,14 +12,10 @@ services:
     links:
       - php-fpm
       - db
-    networks:
-      - my-network
   php-fpm:
     build: ./php-fpm
     volumes:
-      - ./src:/var/www/html
-    networks:
-      - my-network
+    - ./src:/var/www/html
   db:
     image: mariadb
     environment:
@@ -28,11 +24,9 @@ services:
       - MYSQL_USER=magento
       - MYSQL_PASSWORD=magento
     ports:
-      - "3300:3306"
+    - "3306:3306"
     volumes:
-      - dbdata:/var/lib/mysql
-    networks:
-      - my-network
+    - dbdata:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
@@ -42,34 +36,6 @@ services:
      - MYSQL_ROOT_PASSWORD=root
     ports:
      - 8080:80
-    networks:
-     - my-network
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025
-      - 8025:8025
-    networks:
-      - my-network
-  elasticsearch:
-    image: elasticsearch:2.4
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./elasticsearchdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    networks:
-      - my-network
-networks:
-  my-network:
-    driver: bridge
 volumes:
   dbdata:
     driver: local
