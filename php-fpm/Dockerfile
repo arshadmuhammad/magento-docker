@@ -44,7 +44,6 @@ RUN docker-php-ext-install \
   xsl \
   zip
 
-
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN apt-get install -y git
@@ -62,3 +61,4 @@ RUN mkdir -p /var/www/html; \
     usermod -u 1000 www-data
 
 CMD ["php-fpm", "-F"]
+
