@@ -61,4 +61,3 @@ RUN mkdir -p /var/www/html; \
     usermod -u 1000 www-data
 
 CMD ["php-fpm", "-F"]
-
