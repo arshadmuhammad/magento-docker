@@ -2,6 +2,8 @@ FROM nginx:latest
 
 COPY ./magento.conf /etc/nginx/conf.d/default.conf
 
+COPY ./composer/auth.json /var/www/.composer/auth.json
+
 RUN mkdir -p /var/www/html; \
     chown -R www-data:www-data /var/www/html; \
     chmod 777 /var/www/html; \

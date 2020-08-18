@@ -47,6 +47,7 @@ RUN docker-php-ext-install \
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
+
 RUN apt-get install -y git
 
 RUN apt-get -y install golang-go \
@@ -54,7 +55,12 @@ RUN apt-get -y install golang-go \
    && export GOPATH=/opt/go \
    && go get github.com/mailhog/mhsendmail
 
+RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
+   && composer --version
+
 ADD config/php.ini $PHP_INI_DIR/
+
+COPY ./composer/auth.json /var/www/.composer/auth.json
 
 RUN mkdir -p /var/www/html; \
     chown -R www-data:www-data /var/www/html; \
