@@ -52,7 +52,7 @@ services:
     networks:
       - my-network
   elasticsearch:
-    image: elasticsearch:2.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.11
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -62,7 +62,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./elasticsearchdata:/usr/share/elasticsearch/data
+      - elasticdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
@@ -72,4 +72,6 @@ networks:
     driver: bridge
 volumes:
   dbdata:
+    driver: local
+  elasticdata:
     driver: local
